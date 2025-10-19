@@ -1,16 +1,25 @@
 package calculator;
 
+import java.util.IllegalFormatException;
+import java.util.regex.Pattern;
+
 public class Calculator {
     public int calculate(String inputText) {
-        if (!inputText.contains("\\n")) {
-            String numberWithDelimiter = inputText.replace(":", ",");
+        String numberWithDelimiter;
+        String requiredFormat = "^(//(.)\\\\n\\d+(\\2\\d+)*)$|^(\\d+([,:]\\d+)*)$|^$";
 
-            return sumNumbers(numberWithDelimiter);
-        } else {
-            String numberWithDelimiter = getStringWithCustomDelimiter(inputText);
-
-            return sumNumbers(numberWithDelimiter);
+        boolean isValidFormat = inputText.matches(requiredFormat);
+        if(!isValidFormat){
+            throw new IllegalArgumentException("input error");
         }
+
+        if (!inputText.contains("\\n")) {
+            numberWithDelimiter = inputText.replace(":", ",");
+        } else {
+            numberWithDelimiter = getStringWithCustomDelimiter(inputText);
+        }
+
+        return sumNumbers(numberWithDelimiter);
     }
 
     private int sumNumbers(String numberWithDelimiter) {
@@ -30,9 +39,6 @@ public class Calculator {
     }
 
     private String getStringWithCustomDelimiter(String inputText) {
-        if (inputText.indexOf("\\\\n") != inputText.lastIndexOf("\\\\n")) {
-            throw new IllegalArgumentException("input error");
-        }
         String[] lines = inputText.split("\\\\n");
         String seperator = lines[0].replace("//", "");
         String numbers = lines[1];
