@@ -24,7 +24,7 @@ public class Calculator {
 
         boolean isValidFormat = inputText.matches(requiredFormat);
         if(!isValidFormat) {
-            throw new IllegalArgumentException("input error");
+            throw new IllegalArgumentException();
         }
 
         if (!inputText.contains("\\n")) {
@@ -68,9 +68,9 @@ public class Calculator {
      */
     private String getStringWithCustomDelimiter(String inputText) {
         String[] lines = inputText.split("\\\\n");
-        String seperator = lines[0].replace("//", "");
+        String delimiter = lines[0].replace("//", "");
         String numbers = lines[1];
 
-        return numbers.replace(":", ",").replace(seperator, ",");
+        return numbers.replace(":", ",").replace(delimiter, ",");
     }
 }
