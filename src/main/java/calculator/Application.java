@@ -21,15 +21,10 @@ public class Application {
         // 문자열 입력
         String inputText = Console.readLine();
 
-        try {
-            Calculator calculator = new Calculator();   //계산 메소드 호출
-            int result = calculator.calculate(inputText);
+        Calculator calculator = new Calculator();   //계산 메소드 호출
+        int result = calculator.calculate(inputText);
 
-            // 결과 출력
-            System.out.println("결과 : " + result);
-
-        } catch (Exception e) {
-            System.out.println("에러 발생");
-        }
+        // 결과 출력
+        System.out.println("결과 : " + result);
     }
 }
